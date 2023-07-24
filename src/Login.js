@@ -3,20 +3,20 @@ import AuthContext from "./context/AuthProvider";
 import axios from "./api/Axios";
 
 export default function Login() {
-  const userRef = useRef();
-  const errorRef = useRef();
+  const userRef = useRef(); //focus on username field when the page loads
+  const errorRef = useRef(); //focus if error occurs we need focus on that for accessilibity
 
   const { setAuth } = useContext(AuthContext);
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
-  const [errmsg, setErrmsg] = useState("");
+  const [errmsg, setErrmsg] = useState(""); //error we may get back while authenticating
+  const [success, setSuccess] = useState(false); //state if login is successfull
 
-  const [success, setSuccess] = useState(false);
-  const REGISTER_URL = "/register";
+  const LOGIN_URL = "/auth";
 
   useEffect(() => {
-    userRef.current.focus();
+    userRef.current.focus(); //set focus when page loads
   }, []);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        REGISTER_URL,
+        LOGIN_URL,
         JSON.stringify(
           { user, pwd }, //destructuring data
           {
@@ -40,7 +40,7 @@ export default function Login() {
         )
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles; // array
       setAuth({ accessToken, roles });
@@ -52,6 +52,7 @@ export default function Login() {
         //lost internet connection
         setErrmsg("No server response");
       } else if (error.response?.status === 400) {
+        //information which was expected was not received
         setErrmsg("Missing username or password");
       } else if (error.response?.status === 401) {
         setErrmsg("Unauthorized");
