@@ -53,7 +53,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // just for additional protection from javascript
+    // just for additional protection from javascript hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
     if (!v1 || !v2) {
@@ -77,10 +77,13 @@ export default function Register() {
 
       console.log(response.data);
       setSuccess(true);
+      //here you can clear the input fields
     } catch (error) {
       if (!error?.response) {
         //lost internet connection
         setErrorMsg("No server response");
+      } else if (error.response?.status === 409) {
+        setErrorMsg("Username is taken");
       } else {
         setErrorMsg("registration failed");
       }
@@ -121,9 +124,10 @@ export default function Register() {
               required
               aria-invalid={validName ? "false" : "true"} //before submitting whether input field needs adjustment
               aria-describedby="uidnote" //describes read label first, then type and then aria-invalid and then description
+              //provide another element to describe the input field
               onChange={(e) => setUser(e.target.value)}
               onFocus={() => setUserFocus(true)}
-              onBlue={() => setUserFocus(false)}
+              onBlur={() => setUserFocus(false)}
             />
             <p
               id="uidnote"

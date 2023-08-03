@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
-import AuthContext from "./context/AuthProvider";
+import React, { useRef, useEffect, useState } from "react";
 import axios from "./api/Axios";
+import useAuth from "./hooks/UseAuth";
 
 export default function Login() {
   const userRef = useRef(); //focus on username field when the page loads
   const errorRef = useRef(); //focus if error occurs we need focus on that for accessilibity
 
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
