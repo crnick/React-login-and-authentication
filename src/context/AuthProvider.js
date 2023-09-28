@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth }}> {/**import this in the index.js so it is accesible to entire app */}
       {children}
     </AuthContext.Provider>
   );

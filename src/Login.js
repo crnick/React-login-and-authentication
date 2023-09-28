@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "./api/Axios";
-import useAuth from "./hooks/UseAuth";
+import useAuth from "./hooks/useAuth";
 
 export default function Login() {
   const userRef = useRef(); //focus on username field when the page loads
