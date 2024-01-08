@@ -43,7 +43,7 @@ export default function Login() {
       // console.log(response.data);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles; // array
-      setAuth({ accessToken, roles });
+      setAuth({ accessToken, roles }); // global state for holding token and user role
       setUser("");
       setPwd("");
       setSuccess(true);
@@ -87,7 +87,7 @@ export default function Login() {
               type="text"
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
-              value={user}
+              value={user} //makes this a controlled input 
               required
             />
             <label htmlFor="password">Password</label>
