@@ -7,20 +7,22 @@ import Layout from "./Layout";
 import Admin from "./Admin";
 import Home from "./Home";
 import Missing from "./Missing";
+import RequireAuth from "./RequireAuth";
 
 function App() {
   return (
     <main className="App">
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/**nest other components public routes*/}
+          {/**nest other components public routes not handling the conditional logic over here*/}
           <Route path="/login" element={<Login />} />
           <Route path="/regiter" element={<Register />} />
 
-          {/**private routes*/}
-          <Route path="/home" element={<Home />} />
-          <Route path="/admin" element={<Admin />} />
-
+          {/**private routes*/} {/**for home path */}
+          <Route element={<RequireAuth allowedRoles={[]} />}> {/**we are able to go back to where we were before */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+          </Route>
           <Route path="/*" element={<Missing />} />
         </Route>
       </Routes>

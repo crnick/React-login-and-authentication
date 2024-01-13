@@ -125,7 +125,7 @@ export default function Register() {
               aria-invalid={validName ? "false" : "true"} //before submitting whether input field needs adjustment
               aria-describedby="uidnote" //describes read label first, then type and then aria-invalid and then description
               //provide another element to describe the input field
-              onChange={(e) => setUser(e.target.value)}
+              onChange={(e) => setUser(e.target.value)} 
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
             />
